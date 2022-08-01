@@ -1,4 +1,5 @@
-<?php include('isAdminAndLogout.php'); ?>
+<?php include('adminLogout.php'); ?>
+<?php include('isAdmin.php'); ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,11 +17,9 @@
 			<p>Welcome to Dashboard.</p>
 			<p><a href="../index.php">Home</a>
 				<p>
-					<p><a href="insert.php">Insert New Record</a></p>
-					<p><a href="view.php">View Records</a>
-						<p>
-							<p><a href="newsDashboard.php?logout='1'">Logout</a>
-						</p>
+					<p><a href="insertData.php">Insert New Record</a></p>
+					<p><a href="viewData.php">View Records</a></p>
+					<p><a href="newsDashboard.php?logout='1'">Logout</a></p>
 		</div>
 	</body>
 
