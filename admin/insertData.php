@@ -4,20 +4,20 @@ require "../db/db.php";
 include "isAdmin.php";
 $status = "";
 if (isset($_POST["new"]) && $_POST["new"] == 1) {
-    $category = mysqli_real_escape_string($con, $_POST["category"]);
-    $headline = mysqli_real_escape_string($con, $_POST["headline"]);
-    $content = mysqli_real_escape_string($con, $_POST["content"]);
-    $create_datetime = date("Y-m-d H:i:s");
-    $updated_datetime = date("Y-m-d H:i:s");
+	$category = mysqli_real_escape_string($db, $_POST["category"]);
+	$headline = mysqli_real_escape_string($db, $_POST["headline"]);
+	$content = mysqli_real_escape_string($db, $_POST["content"]);
+	$create_datetime = date("Y-m-d H:i:s");
+	$updated_datetime = date("Y-m-d H:i:s");
 
-    $ins_query = "insert into news
+	$ins_query = "insert into news
     (`category`,`headline`,`content`,`create_datetime`, `updated_datetime`)values
     ('$category','$headline','$content','$create_datetime','$updated_datetime')";
-    mysqli_query($con, $ins_query) or die(mysql_error());
-    $status = "New Record Inserted Successfully.
+	mysqli_query($db, $ins_query) or die(mysql_error());
+	$status = "New Record Inserted Successfully.
     </br></br><a href='viewData.php'>View Inserted Record</a>";
 }
-mysqli_close($con);
+mysqli_close($db);
 ?>
 
 <!DOCTYPE html>

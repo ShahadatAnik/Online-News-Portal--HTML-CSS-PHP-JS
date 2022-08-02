@@ -1,5 +1,11 @@
-<?php include('adminLogout.php'); ?>
-<?php include('isAdmin.php'); ?>
+<?php
+
+include('adminLogout.php');
+
+include "isAdmin.php";
+
+require "../db/db.php";
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,14 +19,56 @@
 	</head>
 
 	<body>
-		<div class="form">
-			<p>Welcome to Dashboard.</p>
-			<p><a href="../index.php">Home</a>
-				<p>
-					<p><a href="insertData.php">Insert New Record</a></p>
-					<p><a href="viewData.php">View Records</a></p>
-					<p><a href="newsDashboard.php?logout='1'">Logout</a></p>
+		<div class="container">
+			<div class = "row">
+			<h1>Welcome to Dashboard </h1>
+			<a href="../index.php">Home</a>
+					<a href="insertData.php">Insert New Record</a>
+					<a href="newsDashboard.php?logout='1'">Logout</a>
 		</div>
+		<div class="table-responsive">
+			<h2>View Records</h2>
+			<table class="table table-lg align-middle">
+				<thead class="table-dark">
+					<tr>
+						<th><strong>S.No</strong></th>
+						<th><strong>Category</strong></th>
+						<th><strong>Headline</strong></th>
+						<th><strong>Created</strong></th>
+						<th><strong>Updated</strong></th>
+						<th><strong>Edit</strong></th>
+						<th><strong>Delete</strong></th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php
+$count = 1;
+$sel_query = "Select * from news ORDER BY category asc;";
+$result = mysqli_query($db, $sel_query);
+while ($row = mysqli_fetch_assoc($result)) {
+?>
+					<tr>
+						<td align="center"><?php echo $count; ?></td>
+						<td align="center"><?php echo $row["category"]; ?></td>
+						<td align="center"><?php echo $row["headline"]; ?></td>
+						<td align="center"><?php echo $row["create_datetime"]; ?></td>
+						<td align="center"><?php echo $row["updated_datetime"]; ?></td>
+						
+						<td align="center">
+							<a href="editData.php?id=<?= $row["id"]; ?>">Edit</a>
+						</td>
+						<td align="center">
+							<a href="deleteData.php?id=<?= $row["id"]; ?>">Delete</a>
+						</td>
+					</tr>
+					<?php $count++;
+}?>
+				</tbody>
+			</table>
+		</div>
+
+		</div>
+		
 	</body>
 
 </html>
