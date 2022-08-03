@@ -36,14 +36,28 @@ if (isset($_POST["new"]) && $_POST["new"] == 1) {
     $headline = mysqli_real_escape_string($db, $_POST["headline"]);
     $content = mysqli_real_escape_string($db, $_POST["content"]);
     $updated_datetime = date("Y-m-d H:i:s");
+
+    $headIMG = $_FILES["headIMG"]["name"];
+    $tempName = $_FILES["headIMG"]["tmp_name"];
+    $folder = "../image/" . $headIMG;
+
     $update =
         "update news set 
                             category='" . $category . "',
+                            headIMG='" . $headIMG . "',
                             headline='" . $headline . "', 
                             content='" . $content . "', 
                             updated_datetime='" . $updated_datetime . "' 
                         where id='" . $id . "'";
     mysqli_query($db, $update) or die(mysqli_error());
+
+    if (move_uploaded_file($tempName, $folder)) {
+        $status = "Image uploaded successfully";
+        $status = "Image uploaded successfully";
+    }
+    else {
+        $status = "Failed to upload image";
+    }
     $status = "Record Updated Successfully. </br></br>
                 <a href='newsDashboard.php'>View Updated Record</a>";
     echo '<p style="color:#FF0000;">' . $status . "</p>";
@@ -51,7 +65,7 @@ if (isset($_POST["new"]) && $_POST["new"] == 1) {
 else {
 ?>
 			<div>
-                <form method="post" action="">
+                <form method="post" action="" enctype="multipart/form-data">
 					<input type="hidden" name="new" value="1" />
                     <select name="category">
                             <?php
@@ -88,6 +102,7 @@ else {
 ?>
                             
                     </select> 
+					<p><input type="file" name="headIMG" placeholder="Enter Image" value="<?php echo $row["headIMG"]; ?>" required /></p>
 					<p><input type="text" name="headline" placeholder="Enter Headline" value="<?php echo $row["headline"]; ?>" required /></p>
 					<p><input type="text" name="content" placeholder="Enter Content" value="<?php echo $row["content"]; ?>" required /></p>
 					

@@ -15,7 +15,7 @@ require "../db/db.php";
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<title>News Dashboard</title>
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="../css/bootstrap.min.css" />
 	</head>
 
 	<body>
@@ -33,6 +33,7 @@ require "../db/db.php";
 					<tr>
 						<th><strong>S.No</strong></th>
 						<th><strong>Category</strong></th>
+						<th><strong>Image</strong></th>
 						<th><strong>Headline</strong></th>
 						<th><strong>Created</strong></th>
 						<th><strong>Updated</strong></th>
@@ -48,16 +49,17 @@ $result = mysqli_query($db, $sel_query);
 while ($row = mysqli_fetch_assoc($result)) {
 ?>
 					<tr>
-						<td align="center"><?php echo $count; ?></td>
-						<td align="center"><?php echo $row["category"]; ?></td>
-						<td align="center"><?php echo $row["headline"]; ?></td>
-						<td align="center"><?php echo $row["create_datetime"]; ?></td>
-						<td align="center"><?php echo $row["updated_datetime"]; ?></td>
+						<td ><?php echo $count; ?></td>
+						<td ><?php echo $row["category"]; ?></td>
+						<td ><?php echo '<img src="../image/' . $row["headIMG"] . '" alt="HTML5 Icon" style="width:128px;height:128px">'; ?></td>
+						<td ><?php echo $row["headline"]; ?></td>
+						<td ><?php echo $row["create_datetime"]; ?></td>
+						<td ><?php echo $row["updated_datetime"]; ?></td>
 						
-						<td align="center">
+						<td >
 							<a href="editData.php?id=<?= $row["id"]; ?>">Edit</a>
 						</td>
-						<td align="center">
+						<td >
 							<a href="deleteData.php?id=<?= $row["id"]; ?>">Delete</a>
 						</td>
 					</tr>
@@ -68,6 +70,9 @@ while ($row = mysqli_fetch_assoc($result)) {
 		</div>
 
 		</div>
+		<script src="../jquery-3.5.1.slim.min.js"/>
+		<script src="../popper.min.js"/>
+		<script src="../js/bootstrap.min.js"/>
 		
 	</body>
 
