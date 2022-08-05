@@ -40,7 +40,7 @@ mysqli_close($db);
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<title>News Insert</title>
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="../css/bootstrap.min.css" />
 	</head>
 
 	<body>
@@ -67,5 +67,8 @@ mysqli_close($db);
 			</div>
 		</div>
 	</body>
+	<script src="../jquery-3.5.1.slim.min.js"/>
+		<script src="../popper.min.js"/>
+		<script src="../js/bootstrap.min.js"/>
 
 </html>

@@ -5,9 +5,9 @@ session_start();
 // 	header("location: login.php");
 // }
 if (isset($_GET["logout"])) {
-    session_destroy();
-    unset($_SESSION["username"]);
-    header("location: login.php");
+	session_destroy();
+	unset($_SESSION["username"]);
+	header("location: login.php");
 }
 ?>
 <!DOCTYPE html>
@@ -18,7 +18,7 @@ if (isset($_GET["logout"])) {
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<title>Home</title>
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
 	</head>
 
 	<body>
@@ -31,28 +31,36 @@ if (isset($_GET["logout"])) {
 			<div class="error success">
 				<h3>
 					<?php
-     echo $_SESSION["success"];
-     unset($_SESSION["success"]);
-     ?>
+	echo $_SESSION["success"];
+	unset($_SESSION["success"]);
+?>
 				</h3>
 			</div>
-			<?php endif; ?>
+			<?php
+endif; ?>
 
 			<!-- logged in user information -->
 			<?php if (isset($_SESSION["username"])) { ?>
 			<p>Welcome <strong><?php echo $_SESSION["username"]; ?></strong></p>
 			<p> <a href="index.php?logout='1'" style="color: red;">logout</a> </p>
-			<?php } else { ?>
+			<?php
+}
+else { ?>
 			<button class="button button-danger"><a href="login.php" class="text-decoration-none"><strong>Login</strong></a></button>
-			<?php } ?>
+			<?php
+}?>
 		</div>
 		<div>
 			<?php if (isset($_SESSION["username"])) {
-					if ($_SESSION["username"] == "admin") { ?>
+	if ($_SESSION["username"] == "admin") { ?>
 							<button class="button button-danger"><a href="admin/newsDashboard.php" class="text-decoration-none"><strong>Dashboard</strong></a></button>
-							<?php }
-				} ?>
+							<?php
+	}
+}?>
 		</div>
 	</body>
+	<script src="jquery-3.5.1.slim.min.js"/>
+		<script src="popper.min.js"/>
+		<script src="js/bootstrap.min.js"/>
 
 </html>

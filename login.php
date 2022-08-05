@@ -3,10 +3,7 @@
 <html lang="en">
     <head>
         <title>Login</title>
-        <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
-        />
+        <link rel="stylesheet" href="css/bootstrap.min.css" />
     </head>
     <body>
         <div class="container-fluid">
@@ -71,4 +68,7 @@
             </div>
         </div>
     </body>
+    <script src="jquery-3.5.1.slim.min.js"/>
+		<script src="popper.min.js"/>
+		<script src="js/bootstrap.min.js"/>
 </html>
