@@ -67,8 +67,9 @@
                <p class="h4 mt-5">Don't have an account? <a href="registration.php"><strong>Register</strong></a></p> 
             </div>
         </div>
+        <script src="jquery-3.5.1.slim.min.js"></script>
+		<script src="popper.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
     </body>
-    <script src="jquery-3.5.1.slim.min.js"/>
-		<script src="popper.min.js"/>
-		<script src="js/bootstrap.min.js"/>
+    
 </html>

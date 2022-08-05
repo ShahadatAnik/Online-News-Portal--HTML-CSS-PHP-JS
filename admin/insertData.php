@@ -66,9 +66,10 @@ mysqli_close($db);
 				<p style="color:#FF0000;"><?php echo $status; ?></p>
 			</div>
 		</div>
-	</body>
-	<script src="../jquery-3.5.1.slim.min.js"/>
+		<script src="../jquery-3.5.1.slim.min.js"/>
 		<script src="../popper.min.js"/>
 		<script src="../js/bootstrap.min.js"/>
+	</body>
+	
 
 </html>

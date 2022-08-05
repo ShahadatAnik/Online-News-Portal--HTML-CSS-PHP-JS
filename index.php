@@ -22,23 +22,40 @@ if (isset($_GET["logout"])) {
 	</head>
 
 	<body>
-		<div class="header">
-			<h2>Home Page</h2>
-		</div>
+				<nav class="navbar navbar-expand-lg bg-light">
+					<div class="container-fluid">
+						<a class="navbar-brand border border-dark border-3 rounded px-2" href="index.php"><b>Online News Portal</b></a>
+						<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+							<span class="navbar-toggler-icon"></span>
+						</button>
+						<div class="collapse navbar-collapse" id="navbarNavDropdown">
+							<ul class="navbar-nav">
+								<!-- <li class="nav-item">
+									<a class="nav-link active" aria-current="page" href="#">Home</a>
+								</li> -->
+								<li class="nav-item">
+									<a class="nav-link" href="#">Features</a>
+								</li>
+								<?php if (isset($_SESSION["username"])) {
+	if ($_SESSION["username"] == "admin") { ?>
+									<li class="nav-item dropdown">
+										<a class="nav-link dropdown-toggle" href="admin/newsDashboard.php" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+										Dashboard
+										</a>
+										<ul class="dropdown-menu">
+											<li><a class="dropdown-item" href="#">Home</a></li>
+											<li><a class="dropdown-item" href="#">Another action</a></li>
+											<li><a class="dropdown-item" href="#">Something else here</a></li>
+										</ul>
+									</li>
+								<?php
+	}
+}?>
+							</ul>
+						</div>
+					</div>
+				</nav>
 		<div class="content">
-			<!-- notification message -->
-			<?php if (isset($_SESSION["success"])): ?>
-			<div class="error success">
-				<h3>
-					<?php
-	echo $_SESSION["success"];
-	unset($_SESSION["success"]);
-?>
-				</h3>
-			</div>
-			<?php
-endif; ?>
-
 			<!-- logged in user information -->
 			<?php if (isset($_SESSION["username"])) { ?>
 			<p>Welcome <strong><?php echo $_SESSION["username"]; ?></strong></p>
@@ -46,21 +63,12 @@ endif; ?>
 			<?php
 }
 else { ?>
-			<button class="button button-danger"><a href="login.php" class="text-decoration-none"><strong>Login</strong></a></button>
+				<button class="button button-danger"><a href="login.php" class="text-decoration-none"><strong>Login</strong></a></button>
 			<?php
 }?>
 		</div>
-		<div>
-			<?php if (isset($_SESSION["username"])) {
-	if ($_SESSION["username"] == "admin") { ?>
-							<button class="button button-danger"><a href="admin/newsDashboard.php" class="text-decoration-none"><strong>Dashboard</strong></a></button>
-							<?php
-	}
-}?>
-		</div>
+		<script src="jquery-3.5.1.slim.min.js"></script>
+		<script src="popper.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
 	</body>
-	<script src="jquery-3.5.1.slim.min.js"/>
-		<script src="popper.min.js"/>
-		<script src="js/bootstrap.min.js"/>
-
 </html>

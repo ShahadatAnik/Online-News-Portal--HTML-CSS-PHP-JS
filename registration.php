@@ -6,8 +6,8 @@
         <link rel="stylesheet" href="css/bootstrap.min.css" />
     </head>
     <body>
-        <div class="container-fluid">
-            <div>
+        <div class="container container-fluid">
+            <div class="row">
                 <div
                     class="position-absolute top-0 start-50 translate-middle mt-5"
                 >
@@ -105,8 +105,9 @@
                <p class="h4 mt-5">Already have an account? <a href="login.php"><strong>Login</strong></a></p> 
             </div>
         </div>
+        <script src="jquery-3.5.1.slim.min.js"></script>
+		<script src="popper.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
     </body>
-    <script src="jquery-3.5.1.slim.min.js"/>
-		<script src="popper.min.js"/>
-		<script src="js/bootstrap.min.js"/>
+    
 </html>
