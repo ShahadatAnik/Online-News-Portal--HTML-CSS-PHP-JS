@@ -70,19 +70,29 @@ else { ?>
 				</div>
 			</div>
 		</nav>
-			
-		<div class="row table-responsive m-3">
+
+		<div class="row">
+				<div class="col-2"></div>
+				<div class="col-8">
+					<h1 class="text-center m-2 mb-4 p-1 border border-dark border-3 border-top-0 border-end-0 rounded">View News</h1>
+				</div>
+				<div class="col-2"></div>
+			</div>
+		<div class="row">
+			<div class="col-1"></div>
+			<div class="col-10">
+			<div class="row table-responsive m-3">
 			<table class="table table-lg align-middle">
 				<thead class="table-dark">
 					<tr>
-						<th><strong>S.No</strong></th>
-						<th><strong>Category</strong></th>
-						<th><strong>Image</strong></th>
-						<th><strong>Headline</strong></th>
-						<th><strong>Created</strong></th>
-						<th><strong>Updated</strong></th>
-						<th><strong>Edit</strong></th>
-						<th><strong>Delete</strong></th>
+						<th class="text-center border"><strong>S.No</strong></th>
+						<th class="text-center border"><strong>Category</strong></th>
+						<th class="text-center border"><strong>Image</strong></th>
+						<th class="text-center border"><strong>Headline</strong></th>
+						<th class="text-center border"><strong>Created</strong></th>
+						<th class="text-center border"><strong>Updated</strong></th>
+						<th class="text-center border" colspan="2"><strong>Action</strong></th>
+						
 					</tr>
 				</thead>
 				<tbody>
@@ -101,10 +111,11 @@ while ($row = mysqli_fetch_assoc($result)) {
 						<td ><?php echo $row["updated_datetime"]; ?></td>
 						
 						<td >
-							<a href="editData.php?id=<?= $row["id"]; ?>">Edit</a>
+							<a class="btn btn-primary" href="editData.php?id=<?= $row["id"]; ?>">Edit</a>
+							
 						</td>
 						<td >
-							<a href="deleteData.php?id=<?= $row["id"]; ?>">Delete</a>
+							<a class="btn btn-danger" href="deleteData.php?id=<?= $row["id"]; ?>">Delete</a>
 						</td>
 					</tr>
 					<?php $count++;
@@ -112,7 +123,10 @@ while ($row = mysqli_fetch_assoc($result)) {
 				</tbody>
 			</table>
 		</div>
-
+			</div>
+			<div class="col-1"></div>
+		</div>
+			
 		</div>
 		<script src="../js/jquery-3.5.1.slim.min.js" type="text/javascript"></script>
 		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
