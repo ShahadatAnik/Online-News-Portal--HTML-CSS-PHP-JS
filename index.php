@@ -108,8 +108,8 @@ else { ?>
 	while ($row = mysqli_fetch_assoc($query)) { ?>
 						<div class="card mb-3" style="width: 100%;">
 						<a href="news.php?id=<?php echo $row["id"]; ?>" class="text-decoration-none text-dark">
-							<?php echo
-			'<img src="image/' . $row["headIMG"] . '" 
+						<img 
+							src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['headIMG']); ?>" 
 							class="card-img-top" 
 							alt="..."
 							style="
@@ -118,7 +118,7 @@ else { ?>
 								width: 100%;
 								max-height: 200px;
 								margin-bottom: 1rem;"
-							>'; ?>
+							/>
 							<div class="card-body">
 								<h5 class="card-title"><?php echo $row["headline"]; ?></h5>
 								<p class="card-text"><?php echo substr($row["content"], 0, 100); ?>...</p>
@@ -130,11 +130,50 @@ else { ?>
 ?>
 					</div>
 					<?php
-}?>
+}
+else { ?>
+	<div>
+						<?php
+	require "db/db.php";
+	($query = mysqli_query(
+		$db,
+		"SELECT * FROM `news` ORDER BY `headline`"
+	)) or die(mysqli_error());
+	while ($row = mysqli_fetch_assoc($query)) { ?>
+						<div class="card mb-3" style="width: 100%;">
+						<a href="news.php?id=<?php echo $row["id"]; ?>" class="text-decoration-none text-dark">
+							<img 
+							src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['headIMG']); ?>" 
+							class="card-img-top" 
+							alt="..."
+							style="
+								object-fit: none; 
+								object-position: center; 
+								width: 100%;
+								max-height: 200px;
+								margin-bottom: 1rem;"
+							/>
+							<div class="card-body">
+								<h5 class="card-title"><?php echo $row["headline"]; ?></h5>
+								<p class="card-text"><?php echo substr($row["content"], 0, 100); ?>...</p>
+								</a>
+							</div>
+						</div>
+
+	<?php
+	}
+}
+
+?>
 				</div>
 			</div>
 		</div>
 	</div>
+	<script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+</script>
 		<script src="js/jquery-3.5.1.slim.min.js" type="text/javascript"></script>
 		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>

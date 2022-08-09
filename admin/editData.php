@@ -39,7 +39,7 @@ $row = mysqli_fetch_assoc($result);
 								</li> -->
 							<?php
 if (isset($_SESSION["username"])) {
-    if ($_SESSION["username"] == "admin") { ?>
+	if ($_SESSION["username"] == "admin") { ?>
 							<li class="nav-item dropdown ">
 								<a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 									Dashboard
@@ -50,7 +50,7 @@ if (isset($_SESSION["username"])) {
 								</ul>
 							</li>
 							<?php
-    }
+	}
 }
 if (isset($_SESSION["username"])) { ?>
 
@@ -89,37 +89,48 @@ else { ?>
                 <?php
 $status = "";
 if (isset($_POST["new"]) && $_POST["new"] == 1) {
-    $id = $_REQUEST["id"];
-    $category = mysqli_real_escape_string($db, $_POST["category"]);
-    $headline = mysqli_real_escape_string($db, $_POST["headline"]);
-    $content = mysqli_real_escape_string($db, $_POST["content"]);
-    $updated_datetime = date("Y-m-d H:i:s");
+	$id = $_REQUEST["id"];
+	$category = mysqli_real_escape_string($db, $_POST["category"]);
+	$headline = mysqli_real_escape_string($db, $_POST["headline"]);
+	$content = mysqli_real_escape_string($db, $_POST["content"]);
+	$updated_datetime = date("Y-m-d H:i:s");
 
-    $headIMG = $_FILES["headIMG"]["name"];
-    $tempName = $_FILES["headIMG"]["tmp_name"];
-    $folder = "../image/" . $headIMG;
 
-    $update =
-        "update news set 
+	if (!empty($_FILES["headIMG"]["name"])) {
+		// Get file info 
+		$fileName = basename($_FILES["headIMG"]["name"]);
+		$fileType = pathinfo($fileName, PATHINFO_EXTENSION);
+
+		// Allow certain file formats 
+		$allowTypes = array('jpg', 'png', 'jpeg', 'gif');
+		if (in_array($fileType, $allowTypes)) {
+			$image = $_FILES['headIMG']['tmp_name'];
+			$imgContent = addslashes(file_get_contents($image));
+
+			// Insert image content into database 
+			$update = "update news set 
                             category='" . $category . "',
-                            headIMG='" . $headIMG . "',
+                            headIMG='" . $imgContent . "',
                             headline='" . $headline . "', 
                             content='" . $content . "', 
                             updated_datetime='" . $updated_datetime . "' 
                         where id='" . $id . "'";
-    mysqli_query($db, $update) or die(mysqli_error());
-
-    if (move_uploaded_file($tempName, $folder)) {
-        $status = "Image uploaded successfully";
-    }
-    else {
-        $status = "Failed to upload image";
-    }
-    $status = "</br></br>
+			mysqli_query($db, $update) or die(mysqli_error());
+			$status = "</br></br>
         <h3 class='text-success'>Record Updated Successfully</h3> </br></br>
         <a href='newsDashboard.php' class='text-decoration-none border border-dark border-3 rounded px-2'>View Updated Record</a>";
 
-    echo "<div class='text-center fw-bold'>" . $status . "</div>";
+		}
+		else {
+			$status = 'Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.';
+		}
+	}
+	else {
+		$status = 'Please select an image file to upload.';
+	}
+
+
+	echo "<div class='text-center fw-bold'>" . $status . "</div>";
 }
 else {
 ?>
@@ -129,41 +140,41 @@ else {
 					<label for="inputState" class="form-label fw-bold">News Category</label>
 					<select id="inputState" class="form-select"  name="category">
                     <?php if ($row["category"] == "Business") {
-        echo "<option value='Business' selected>Business</option>";
-    }
-    else {
-        echo "<option value='Business'>Business</option>";
-    }
-    if ($row["category"] == "Health") {
-        echo "<option value='Health' selected>Health</option>";
-    }
-    else {
-        echo "<option value='Health'>Health</option>";
-    }
-    if ($row["category"] == "Politics") {
-        echo "<option value='Politics' selected>Politics</option>";
-    }
-    else {
-        echo "<option value='Politics'>Politics</option>";
-    }
-    if ($row["category"] == "Sports") {
-        echo "<option value='Sports' selected>Sports</option>";
-    }
-    else {
-        echo "<option value='Sports'>Sports</option>";
-    }
-    if ($row["category"] == "Technology") {
-        echo "<option value='Technology' selected>Technology</option>";
-    }
-    else {
-        echo "<option value='Technology'>Technology</option>";
-    }
+		echo "<option value='Business' selected>Business</option>";
+	}
+	else {
+		echo "<option value='Business'>Business</option>";
+	}
+	if ($row["category"] == "Health") {
+		echo "<option value='Health' selected>Health</option>";
+	}
+	else {
+		echo "<option value='Health'>Health</option>";
+	}
+	if ($row["category"] == "Politics") {
+		echo "<option value='Politics' selected>Politics</option>";
+	}
+	else {
+		echo "<option value='Politics'>Politics</option>";
+	}
+	if ($row["category"] == "Sports") {
+		echo "<option value='Sports' selected>Sports</option>";
+	}
+	else {
+		echo "<option value='Sports'>Sports</option>";
+	}
+	if ($row["category"] == "Technology") {
+		echo "<option value='Technology' selected>Technology</option>";
+	}
+	else {
+		echo "<option value='Technology'>Technology</option>";
+	}
 ?>
 					</select>
 				</div>
 				<div class="col-md-6">
 					<label for="formFile" class="form-label fw-bold">News Heading Image</label>
-					<input class="form-control" type="file" id="formFile" name="headIMG" value="<?php echo '../image/' . $row["headIMG"]; ?>">
+					<input class="form-control" type="file" id="formFile" name="headIMG" required>
 				</div>
 				<div class="col-md-12 mb-3">
 					<label for="exampleFormControlInput1" class="form-label fw-bold">News Heading</label>
@@ -185,6 +196,11 @@ else {
 			</div>
 			
 		</div>
+		<script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+</script>
         <script src="../js/jquery-3.5.1.slim.min.js" type="text/javascript"></script>
 		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>

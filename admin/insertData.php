@@ -10,22 +10,37 @@ if (isset($_POST["new"]) && $_POST["new"] == 1) {
 	$content = mysqli_real_escape_string($db, $_POST["content"]);
 	$create_datetime = date("Y-m-d H:i:s");
 	$updated_datetime = date("Y-m-d H:i:s");
-	$fileName = $_FILES["headIMG"]["name"];
-	$tempName = $_FILES["headIMG"]["tmp_name"];
-	$folder = "../image/" . $fileName;
-	$ins_query = "insert into news
-    (`category`,`headline`,`content`,`create_datetime`, `updated_datetime`, `headIMG`) values
-    ('$category','$headline','$content','$create_datetime','$updated_datetime','$fileName')";
-	mysqli_query($db, $ins_query) or die(mysql_error());
-	$status = "New Record Inserted Successfully.
-    </br></br><a href='viewData.php'>View Inserted Record</a>";
-	if (move_uploaded_file($tempName, $folder)) {
-		$status = "Image uploaded successfully"; // $status = "<div id='liveAlertPlaceholder'></div>";
+
+	if (!empty($_FILES["headIMG"]["name"])) {
+		// Get file info 
+		$fileName = basename($_FILES["headIMG"]["name"]);
+		$fileType = pathinfo($fileName, PATHINFO_EXTENSION);
+
+		// Allow certain file formats 
+		$allowTypes = array('jpg', 'png', 'jpeg', 'gif');
+		if (in_array($fileType, $allowTypes)) {
+			$image = $_FILES['headIMG']['tmp_name'];
+			$imgContent = addslashes(file_get_contents($image));
+
+			// Insert image content into database 
+			$ins_query = "insert into news
+				(`category`,`headline`,`content`,`create_datetime`, `updated_datetime`, `headIMG`) values
+				('$category','$headline','$content','$create_datetime','$updated_datetime','$imgContent')";
+			mysqli_query($db, $ins_query) or die(mysql_error());
+			$status = "New Record Inserted Successfully.
+				</br></br><a href='newsDashboard.php'>View Inserted Record</a>";
+		}
+		else {
+			$statusMsg = 'Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.';
+		}
 	}
 	else {
-		$status = "Failed to upload image";
+		$statusMsg = 'Please select an image file to upload.';
 	}
+
 }
+
+
 mysqli_close($db);
 ?>
 
@@ -159,6 +174,11 @@ else { ?>
 				})
 			}
 		</script>
+		<script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+</script>
 		<script src="../js/jquery-3.5.1.slim.min.js" type="text/javascript"></script>
 		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>

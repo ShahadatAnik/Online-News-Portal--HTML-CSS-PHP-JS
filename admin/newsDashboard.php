@@ -77,7 +77,7 @@ else { ?>
 					<h1 class="text-center m-2 mb-4 p-1 border border-dark border-3 border-top-0 border-end-0 rounded">View News</h1>
 				</div>
 				<div class="col-2"></div>
-			</div>
+		</div>
 		<div class="row">
 			<div class="col-1"></div>
 			<div class="col-10">
@@ -105,7 +105,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 					<tr>
 						<td ><?php echo $count; ?></td>
 						<td ><?php echo $row["category"]; ?></td>
-						<td ><?php echo '<img src="../image/' . $row["headIMG"] . '" alt="HTML5 Icon" style="width:128px;height:128px">'; ?></td>
+						<td ><img style="width:128px;height:128px" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['headIMG']); ?>" /></td>
 						<td ><?php echo $row["headline"]; ?></td>
 						<td ><?php echo $row["create_datetime"]; ?></td>
 						<td ><?php echo $row["updated_datetime"]; ?></td>
