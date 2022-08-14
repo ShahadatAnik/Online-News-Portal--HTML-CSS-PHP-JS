@@ -8,8 +8,7 @@ if (isset($_POST["new"]) && $_POST["new"] == 1) {
 	$category = mysqli_real_escape_string($db, $_POST["category"]);
 	$headline = mysqli_real_escape_string($db, $_POST["headline"]);
 	$content = mysqli_real_escape_string($db, $_POST["content"]);
-	$create_datetime = date("Y-m-d H:i:s");
-	$updated_datetime = date("Y-m-d H:i:s");
+	$datetime = date("Y-m-d H:i:s");
 
 	if (!empty($_FILES["headIMG"]["name"])) {
 		// Get file info 
@@ -25,7 +24,7 @@ if (isset($_POST["new"]) && $_POST["new"] == 1) {
 			// Insert image content into database 
 			$ins_query = "insert into news
 				(`category`,`headline`,`content`,`create_datetime`, `updated_datetime`, `headIMG`) values
-				('$category','$headline','$content','$create_datetime','$updated_datetime','$imgContent')";
+				('$category','$headline','$content','$datetime','$datetime','$imgContent')";
 			mysqli_query($db, $ins_query) or die(mysql_error());
 			$status = "New Record Inserted Successfully.
 				</br></br><a href='newsDashboard.php'>View Inserted Record</a>";
