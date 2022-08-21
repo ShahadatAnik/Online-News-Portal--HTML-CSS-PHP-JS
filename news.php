@@ -32,22 +32,6 @@ if(isset($_POST['cmnt_submit'])){
         <link rel="stylesheet" href="css/bootstrap.min.css" />
     </head>
     <body>
-        <!-- <div class="col-md-3"></div>
-        <div class="col-md-6 well">
-            <?php
-            require 'db/db.php';
-            if(ISSET($_REQUEST['id'])){
-                $query = mysqli_query($db, "SELECT * FROM `news` WHERE `id` = '$_REQUEST[id]'") or die(mysqli_error());
-                $row = mysqli_fetch_array($query);
-        ?>
-            <h3><?php echo $row['headline']?></h3>
-            <p><?php echo nl2br($row['content'])?></p>
-            <?php
-            }
-        ?>
-            <a href="index.php" class="btn btn-success">Back</a>
-        </div> -->
-
         <div class="container-fluid">
             <nav class="navbar navbar-expand-lg bg-light">
                 <div class="container-fluid ">
@@ -137,13 +121,13 @@ if(isset($_POST['cmnt_submit'])){
                     <div class="row-md-12 mt-2">
                             <img 
 							src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['headIMG']); ?>" 
-							class="card-img-top" 
+							class="card-img-top rounded" 
 							alt="..."
 							style="
-								object-fit: none; 
+								object-fit: cover; 
 								object-position: center; 
-								max-width: 100%;
-								max-height: 300px;
+								width: 100%;
+								/* max-height: 300px; */
 								margin-bottom: 1rem;"
 							/>
                     </div>
@@ -170,8 +154,8 @@ if(isset($_POST['cmnt_submit'])){
                     <?php
                         }                 
                     ?>
-                    <div class="row-md-12 mt-2 open-sans-font pb-2 text-justify shadow-lg p-3 mb-5 bg-body rounded">
-                        <?= $row['content']; ?>
+                    <div class="row-md-12 fs-5 mt-2 open-sans-font pb-2 shadow-lg p-3 mb-5 bg-body rounded" style="text-align: justify;">
+                        <?= nl2br($row['content']); ?>
                     </div>
                     <div class="row-md-12 mt-4 text-justify">
                         <div class="col-12">

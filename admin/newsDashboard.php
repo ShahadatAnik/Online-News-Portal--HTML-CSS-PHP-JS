@@ -72,17 +72,16 @@ else { ?>
 		</nav>
 
 		<div class="row">
-				<div class="col-2"></div>
-				<div class="col-8">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
 					<h1 class="text-center m-2 mb-4 p-1 border border-dark border-3 border-top-0 border-end-0 rounded">View News</h1>
 				</div>
-				<div class="col-2"></div>
+				<div class="col-md-2"></div>
 		</div>
 		<div class="row">
-			<div class="col-1"></div>
-			<div class="col-10">
-			<div class="row table-responsive m-3">
-			<table class="table table-lg align-middle">
+			<div class="col-md-1"></div>
+			<div class="col-md-10 table-responsive-sm" >
+			<table class="table table-lg  table-striped  align-middle" >
 				<thead class="table-dark">
 					<tr>
 						<th class="text-center border"><strong>S.No</strong></th>
@@ -124,7 +123,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 			</table>
 		</div>
 			</div>
-			<div class="col-1"></div>
+			<div class="col-md-1"></div>
 		</div>
 			
 		</div>

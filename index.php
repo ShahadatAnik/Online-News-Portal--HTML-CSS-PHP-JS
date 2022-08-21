@@ -112,7 +112,7 @@ if (isset($_POST["search"])) {
 						<?php
 	($query = mysqli_query(
 		$db,
-		"SELECT * FROM `news` WHERE `headline` LIKE '%$keyword%' OR `category` LIKE '%$keyword%' ORDER BY `headline`"
+		"SELECT * FROM `news` WHERE `headline` LIKE '%$keyword%' OR `category` LIKE '%$keyword%' ORDER BY `create_datetime` DESC"
 	)) or die(mysqli_error());
 	while ($row = mysqli_fetch_assoc($query)) { ?>
 						<div class="card mb-3 shadow-sm bg-body rounded" style="width: 100%;">
@@ -162,7 +162,7 @@ else { ?>
 						<?php
 	($query = mysqli_query(
 		$db,
-		"SELECT * FROM `news` ORDER BY `headline`"
+		"SELECT * FROM `news` ORDER BY `create_datetime` DESC"
 	)) or die(mysqli_error());
 	while ($row = mysqli_fetch_assoc($query)) { ?>
 						<div class="card mb-3 shadow-sm bg-body rounded" style="width: 100%;">
@@ -172,32 +172,42 @@ else { ?>
 							class="card-img-top" 
 							alt="..."
 							style="
-								object-fit: none; 
+								object-fit: cover; 
 								object-position: center; 
 								width: 100%;
 								max-height: 300px;
-								margin-bottom: 1rem;"
+								"
 							/>
 							<div class="card-body">
 								<h5 class="card-title"><?= $row["headline"]; ?></h5>
-								<p class="card-text"><span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-event-fill" viewBox="0 0 16 16">
-                                    <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zm-3.5-7h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z"/>
-                                </svg> <?= substr($row['create_datetime'], 0, 10); ?>
-                            </span>
-                            <span>&nbsp;&nbsp;</span>
-                            <span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock-fill" viewBox="0 0 16 16">
-                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
-                                  </svg> <?= substr($row['create_datetime'], 11, 8); ?>
-                            </span>
-                            <span>&nbsp;&nbsp;</span>
-                            <span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-tags-fill" viewBox="0 0 16 16">
-                                    <path d="M2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586V2zm3.5 4a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
-                                    <path d="M1.293 7.793A1 1 0 0 1 1 7.086V2a1 1 0 0 0-1 1v4.586a1 1 0 0 0 .293.707l7 7a1 1 0 0 0 1.414 0l.043-.043-7.457-7.457z"/>
-                                  </svg> <?= $row['category']; ?>
-                            </span></p>
+								<p class="card-text">
+									<span>
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-event-fill" viewBox="0 0 16 16">
+											<path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zm-3.5-7h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z"/>
+										</svg> <?= substr($row['create_datetime'], 0, 10); ?>
+									</span>
+									<span>&nbsp;&nbsp;</span>
+									<span>
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock-fill" viewBox="0 0 16 16">
+											<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
+										</svg> <?= substr($row['create_datetime'], 11, 8); ?>
+									</span>
+									<span>&nbsp;&nbsp;</span>
+									<span>
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-tags-fill" viewBox="0 0 16 16">
+											<path d="M2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586V2zm3.5 4a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+											<path d="M1.293 7.793A1 1 0 0 1 1 7.086V2a1 1 0 0 0-1 1v4.586a1 1 0 0 0 .293.707l7 7a1 1 0 0 0 1.414 0l.043-.043-7.457-7.457z"/>
+										</svg> <?= $row['category']; ?>
+									</span>
+								</p>
+								<?php
+									if (isset($_SESSION["username"]) && $_SESSION["username"] == "admin") {?>
+										<a class="btn btn-primary mt-3" href="admin/editData.php?id=<?= $row["id"]; ?>">Edit</a>
+										<a class="btn btn-danger mt-3" href="admin/deleteData.php?id=<?= $row["id"]; ?>">Delete</a>
+										
+								<?php
+									}
+								?>
 								</a>
 							</div>
 						</div>

@@ -1,5 +1,6 @@
 <?php
 require "db/db.php";
+require "db/auth_session.php";
 
 $cmnt_id = $_REQUEST['cmnt_id'];
 $id = $_REQUEST['id'];

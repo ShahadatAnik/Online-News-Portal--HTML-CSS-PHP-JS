@@ -77,15 +77,15 @@ else { ?>
 				</div>
 			</nav>
             <div class="row">
-				<div class="col-2"></div>
-				<div class="col-8">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
 					<h1 class="text-center m-2 mb-4 p-1 border border-dark border-3 border-top-0 border-end-0 rounded">Update News</h1>
 				</div>
-				<div class="col-2"></div>
+				<div class="col-md-2"></div>
 			</div>
             <div class="row">
-				<div class="col-2"></div>
-				<div class="col-8">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
                 <?php
 $status = "";
 if (isset($_POST["new"]) && $_POST["new"] == 1) {
@@ -174,7 +174,7 @@ else {
 				</div>
 				<div class="col-md-6">
 					<label for="formFile" class="form-label fw-bold">News Heading Image</label>
-					<input class="form-control" type="file" id="formFile" name="headIMG" required>
+					<input class="form-control" type="file" id="formFile" name="headIMG" title="Try to enter 3:2 size photo"  value="data:image/jpg;charset=utf8;base64,base64_encode($row['headIMG']); ?>" required>
 				</div>
 				<div class="col-md-12 mb-3">
 					<label for="exampleFormControlInput1" class="form-label fw-bold">News Heading</label>
@@ -182,7 +182,7 @@ else {
 				</div>
 				<div class="col-md-12 mb-3">
 					<label for="exampleFormControlTextarea1" class="form-label fw-bold">News Content</label>
-					<textarea class="form-control" id="exampleFormControlTextarea1" rows="5" name="content" placeholder="Enter Content" required> <?php echo $row["content"]; ?> </textarea>
+					<textarea class="form-control" id="exampleFormControlTextarea1" rows="12" name="content" placeholder="Enter Content" required><?php echo $row["content"]; ?></textarea>
 				</div>
 				<div class="col-12 text-center">
 					<button id="liveAlertBtn" name="submit" type="submit" value="Update" class="btn btn-primary btn-lg">Update</button>
@@ -192,7 +192,7 @@ else {
 }
 ?>
 				</div>
-				<div class="col-2"></div>
+				<div class="col-md-2"></div>
 			</div>
 			
 		</div>

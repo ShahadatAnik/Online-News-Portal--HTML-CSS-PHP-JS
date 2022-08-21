@@ -106,15 +106,15 @@ else { ?>
 				</div>
 			</nav>
 			<div class="row">
-				<div class="col-2"></div>
-				<div class="col-8">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
 					<h1 class="text-center m-2 mb-4 p-1 border border-dark border-3 border-top-0 border-end-0 rounded">Insert News</h1>
 				</div>
-				<div class="col-2"></div>
+				<div class="col-md-2"></div>
 			</div>
 			<div class="row">
-				<div class="col-2"></div>
-				<div class="col-8">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
 					<form class="row g-3 m-2 border-dark border-3 rounded px-2" name="form" method="post" action="" enctype="multipart/form-data">
 						<input type="hidden" name="new" value="1" />
 						<div class="col-md-6">
@@ -137,7 +137,7 @@ else { ?>
 						</div>
 						<div class="col-md-12 mb-3">
 							<label for="exampleFormControlTextarea1" class="form-label fw-bold">News Content</label>
-							<textarea class="form-control" id="exampleFormControlTextarea1" rows="5" name="content" placeholder="Enter Content" required></textarea>
+							<textarea class="form-control" id="exampleFormControlTextarea1" rows="12" name="content" placeholder="Enter Content" required></textarea>
 						</div>
 						<div class="col-12 text-center">
 							<button id="liveAlertBtn" name="submit" type="submit" value="Submit" class="btn btn-primary btn-lg">Submit</button>
@@ -145,7 +145,7 @@ else { ?>
 					</form>
 					<p style="color:#FF0000;"><?php echo $status; ?></p>
 				</div>
-				<div class="col-2"></div>
+				<div class="col-md-2"></div>
 			</div>
 
 			<!-- <div id="liveAlertPlaceholder"></div> -->
