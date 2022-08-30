@@ -148,6 +148,14 @@ if (isset($_POST["search"])) {
                                     <path d="M1.293 7.793A1 1 0 0 1 1 7.086V2a1 1 0 0 0-1 1v4.586a1 1 0 0 0 .293.707l7 7a1 1 0 0 0 1.414 0l.043-.043-7.457-7.457z"/>
                                   </svg> <?= $row['category']; ?>
                             </span></p>
+							<?php
+		if (isset($_SESSION["username"]) && $_SESSION["username"] == "admin") { ?>
+										<a class="btn btn-primary mt-3" href="admin/editData.php?id=<?= $row["id"]; ?>">Edit</a>
+										<a class="btn btn-danger mt-3" href="admin/deleteData.php?id=<?= $row["id"]; ?>">Delete</a>
+										
+								<?php
+		}
+?>
 								</a>
 							</div>
 						</div>
@@ -201,13 +209,13 @@ else { ?>
 									</span>
 								</p>
 								<?php
-									if (isset($_SESSION["username"]) && $_SESSION["username"] == "admin") {?>
+		if (isset($_SESSION["username"]) && $_SESSION["username"] == "admin") { ?>
 										<a class="btn btn-primary mt-3" href="admin/editData.php?id=<?= $row["id"]; ?>">Edit</a>
 										<a class="btn btn-danger mt-3" href="admin/deleteData.php?id=<?= $row["id"]; ?>">Delete</a>
 										
 								<?php
-									}
-								?>
+		}
+?>
 								</a>
 							</div>
 						</div>

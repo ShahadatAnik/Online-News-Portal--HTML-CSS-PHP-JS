@@ -18,7 +18,7 @@ $row = mysqli_fetch_assoc($result);
     <meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
-		<title>Edit News</title>
+		<title>Edit Data</title>
 		<!-- <link rel="stylesheet" href="../css/bootstrap.min.css" /> -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 
@@ -107,7 +107,6 @@ if (isset($_POST["new"]) && $_POST["new"] == 1) {
 			$image = $_FILES['headIMG']['tmp_name'];
 			$imgContent = addslashes(file_get_contents($image));
 
-			// Insert image content into database 
 			$update = "update news set 
                             category='" . $category . "',
                             headIMG='" . $imgContent . "',
@@ -115,19 +114,25 @@ if (isset($_POST["new"]) && $_POST["new"] == 1) {
                             content='" . $content . "', 
                             updated_datetime='" . $updated_datetime . "' 
                         where id='" . $id . "'";
-			mysqli_query($db, $update) or die(mysqli_error());
-			$status = "</br></br>
-        <h3 class='text-success'>Record Updated Successfully</h3> </br></br>
-        <a href='newsDashboard.php' class='text-decoration-none border border-dark border-3 rounded px-2'>View Updated Record</a>";
-
 		}
 		else {
 			$status = 'Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.';
 		}
 	}
 	else {
-		$status = 'Please select an image file to upload.';
+		$update = "update news set 
+                            category='" . $category . "',
+                            headline='" . $headline . "', 
+                            content='" . $content . "', 
+                            updated_datetime='" . $updated_datetime . "' 
+                        where id='" . $id . "'";
 	}
+
+	mysqli_query($db, $update) or die(mysqli_error());
+	$status = "</br></br>
+        <h3 class='text-success'>Record Updated Successfully</h3> </br></br>
+        <a href='newsDashboard.php' class='text-decoration-none border border-dark border-3 rounded px-2'>View Updated Record</a>";
+
 
 
 	echo "<div class='text-center fw-bold'>" . $status . "</div>";
@@ -136,7 +141,7 @@ else {
 ?>
             <form class="row g-3 m-2 border-dark border-3 rounded px-2" name="form" method="post" action="" enctype="multipart/form-data">
 				<input type="hidden" name="new" value="1" />
-				<div class="col-md-6">
+				<div class="col-md-12">
 					<label for="inputState" class="form-label fw-bold">News Category</label>
 					<select id="inputState" class="form-select"  name="category">
                     <?php if ($row["category"] == "Business") {
@@ -172,9 +177,20 @@ else {
 ?>
 					</select>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-12">
 					<label for="formFile" class="form-label fw-bold">News Heading Image</label>
-					<input class="form-control" type="file" id="formFile" name="headIMG" title="Try to enter 3:2 size photo"  value="data:image/jpg;charset=utf8;base64,base64_encode($row['headIMG']); ?>" required>
+					<input class="form-control" type="file" id="formFile" name="headIMG" title="Try to enter 3:2 size photo"  value="data:image/jpg;charset=utf8;base64,base64_encode($row['headIMG']); ?>">
+					<img 
+							src="data:image/jpg;charset=utf8;base64,<?= base64_encode($row['headIMG']); ?>" 
+							class="card-img-top mt-2" 
+							alt="..."
+							style="
+								object-fit: cover; 
+								object-position: center; 
+								width: 100%;
+								max-height: 300px;
+								"
+							/>
 				</div>
 				<div class="col-md-12 mb-3">
 					<label for="exampleFormControlInput1" class="form-label fw-bold">News Heading</label>
