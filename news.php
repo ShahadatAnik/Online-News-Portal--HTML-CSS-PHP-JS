@@ -4,7 +4,7 @@ require 'db/db.php';
 $status ="";
 if(isset($_POST['cmnt_submit'])){
     if(!isset($_SESSION['username'])){
-        $status = "You must be logged in to comment";
+        $status = "00";
     }
     else{
         $comment = $_POST['comment'];
@@ -14,10 +14,10 @@ if(isset($_POST['cmnt_submit'])){
         $sql = "INSERT INTO comments (newsId, personName, cmnt, created_on) VALUES ('$news_id', '$user', '$comment', '$date')";
         $result = mysqli_query($db, $sql);
         if($result){
-            $status = "Comment posted";
+            $status = "1";
         }
         else{
-            $status = "Comment not posted";
+            $status = "0";
         }
     }
 }
@@ -103,7 +103,7 @@ if(isset($_POST['cmnt_submit'])){
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock-fill" viewBox="0 0 16 16">
                                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
-                                  </svg> <?= substr($row['create_datetime'],11, 8); ?>
+                                  </svg> <?= substr($row['create_datetime'],11, 5); ?>
                             </span>
                             <span>&nbsp;&nbsp;</span>
                             <span>
@@ -148,7 +148,7 @@ if(isset($_POST['cmnt_submit'])){
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock-fill" viewBox="0 0 16 16">
                                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
-                                  </svg> <?= substr($row['updated_datetime'],11, 8); ?>
+                                  </svg> <?= substr($row['updated_datetime'],11, 5); ?>
                             </span>
                         </div>
                     </div>
@@ -192,7 +192,7 @@ if(isset($_POST['cmnt_submit'])){
                                         </cite> <span>&nbsp;&nbsp;</span>
                                         <?php if(isset($_SESSION['username']) && $comment['personName'] == $_SESSION['username']){ ?>
                                         <span>
-                                              <a class="btn btn-danger btn-sm" onclick="return confirm('Do you want to delete?')" href="deleteComment.php?id=<?= $_REQUEST['id']; ?>&cmnt_id=<?= $comment['id']; ?>"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                              <a class="btn btn-danger btn-sm" onclick="return confirm('Do You Want to Delete The Comment?')" href="deleteComment.php?id=<?= $_REQUEST['id']; ?>&cmnt_id=<?= $comment['id']; ?>"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                                 <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
                                                 <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
                                               </svg></a>
@@ -204,7 +204,7 @@ if(isset($_POST['cmnt_submit'])){
                             <?php
                             }
                             ?>
-                            <div class="row-md-12 mb-3 shadow-lg p-3 mb-5 bg-body rounded">
+                            <div class="row-md-12 mb-3 shadow-lg p-3 mb-3 bg-body rounded">
                                 <form action="" method="post">
                                     <div class="form-group">
                                         <label for="comment" class="fw-bold fs-4">Comment</label>
@@ -215,9 +215,26 @@ if(isset($_POST['cmnt_submit'])){
                                     </div>
                                 </form>
                             </div>
-                            <div class="row-md-12 p-3 text-center">
-                                <h3><?= $status ?></h4>
-                            </div>
+                            <?php if($status != ""){
+                                if($status == "1"){ ?>
+                                <div class="alert alert-success text-center" role="alert">
+                                    Comment Posted Successfully
+                                </div>
+                            <?php
+                            } elseif($status == "00"){
+                            ?>
+                                <div class="alert alert-danger text-center" role="alert">
+                                    You Must Be Login to Comment
+                                </div>
+                            <?php
+                            } else{
+                            ?>
+                                <div class="alert alert-warning text-center" role="alert">
+                                    Please Try Again Latter
+                                </div>
+                            <?php
+                            } }
+                            ?>
                         </div>
                     </div>
                 </div>

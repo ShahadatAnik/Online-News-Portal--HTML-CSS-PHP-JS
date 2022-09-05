@@ -1,9 +1,6 @@
 <?php
 session_start();
-// if (!isset($_SESSION["username"])) {
-// 	$_SESSION["msg"] = "You must log in first";
-// 	header("location: login.php");
-// }
+
 if (isset($_GET["logout"])) {
 	session_destroy();
 	unset($_SESSION["username"]);
@@ -42,9 +39,6 @@ if (isset($_GET["logout"])) {
 				</button>
 				<div class="collapse navbar-collapse" id="navbarNavDropdown">
 					<ul class="navbar-nav ml-auto">
-						<!-- <li class="nav-item">
-									<a class="nav-link active" aria-current="page" href="#">Home</a>
-								</li> -->
 						<?php
 if (isset($_SESSION["username"])) {
 	if ($_SESSION["username"] == "admin") { ?>
@@ -74,7 +68,7 @@ if (isset($_SESSION["username"])) { ?>
 }
 else { ?>
 						<li class="nav-item">
-							<a class="btn btn-outline-primary fw-bold" class="nav-link text-primary" href="login.php">Login</a>
+							<a class="btn btn-outline-primary fw-bold mt-2" class="nav-link text-primary" href="login.php">Login</a>
 						</li>
 
 						<?php
@@ -84,7 +78,7 @@ else { ?>
 				</div>
 			</div>
 		</nav>
-		<div class="row">
+		<div class="row mt-2">
 			<div class="col-md-1"></div>
 			<!-- search box -->
 			<div class="col-md-10">
@@ -94,7 +88,7 @@ else { ?>
 						<input 
 							type="text" 
 							class="form-control" 
-							placeholder="Search here..." 
+							placeholder="Search News Here..." 
 							name="keyword" 
 							required 
 							value="<?= isset($_POST["keyword"]) ? $_POST["keyword"] : ""; ?>"
@@ -114,6 +108,7 @@ if (isset($_POST["search"])) {
 		$db,
 		"SELECT * FROM `news` WHERE `headline` LIKE '%$keyword%' OR `category` LIKE '%$keyword%' ORDER BY `create_datetime` DESC"
 	)) or die(mysqli_error());
+	if(mysqli_num_rows($query) > 0){
 	while ($row = mysqli_fetch_assoc($query)) { ?>
 						<div class="card mb-3 shadow-sm bg-body rounded" style="width: 100%;">
 						<a href="news.php?id=<?= $row["id"]; ?>" class="text-decoration-none text-dark">
@@ -122,11 +117,11 @@ if (isset($_POST["search"])) {
 							class="card-img-top" 
 							alt="..."
 							style="
-								object-fit: none; 
+								object-fit: cover; 
 								object-position: center; 
 								width: 100%;
-								max-height: 200px;
-								margin-bottom: 1rem;"
+								max-height: 300px;
+								"
 							/>
 							<div class="card-body">
 								<h5 class="card-title"><?= $row["headline"]; ?></h5>
@@ -139,7 +134,7 @@ if (isset($_POST["search"])) {
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock-fill" viewBox="0 0 16 16">
                                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
-                                  </svg> <?= substr($row['create_datetime'], 11, 8); ?>
+                                  </svg> <?= substr($row['create_datetime'], 11, 5); ?>
                             </span>
                             <span>&nbsp;&nbsp;</span>
                             <span>
@@ -151,7 +146,7 @@ if (isset($_POST["search"])) {
 							<?php
 		if (isset($_SESSION["username"]) && $_SESSION["username"] == "admin") { ?>
 										<a class="btn btn-primary mt-3" href="admin/editData.php?id=<?= $row["id"]; ?>">Edit</a>
-										<a class="btn btn-danger mt-3" href="admin/deleteData.php?id=<?= $row["id"]; ?>">Delete</a>
+										<a class="btn btn-danger mt-3" onclick="return confirm('Do You Want to Delete The News?')" href="admin/deleteData.php?id=<?= $row["id"]; ?>">Delete</a>
 										
 								<?php
 		}
@@ -164,6 +159,12 @@ if (isset($_POST["search"])) {
 ?>
 					</div>
 					<?php
+}
+else {
+	echo "<div class='alert alert-warning text-center' role='alert'>
+			No data found with <b>{$keyword}</b>. You can search again.
+		</div>";
+}
 }
 else { ?>
 	<div>
@@ -198,7 +199,7 @@ else { ?>
 									<span>
 										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock-fill" viewBox="0 0 16 16">
 											<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
-										</svg> <?= substr($row['create_datetime'], 11, 8); ?>
+										</svg> <?= substr($row['create_datetime'], 11, 5); ?>
 									</span>
 									<span>&nbsp;&nbsp;</span>
 									<span>

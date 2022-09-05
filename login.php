@@ -30,7 +30,7 @@
                         <div class="row mb-3">
                             <label
                                 for="inputEmail"
-                                class="col-sm-3 col-form-label"
+                                class="col-sm-3 col-form-label fw-bold"
                                 >Username</label
                             >
                             <div class="col-sm-9">
@@ -47,7 +47,7 @@
                         <div class="row mb-3">
                             <label
                                 for="inputPassword"
-                                class="col-sm-3 col-form-label"
+                                class="col-sm-3 col-form-label fw-bold"
                                 >Password</label
                             >
                             <div class="col-sm-9">

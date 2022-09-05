@@ -98,7 +98,7 @@ else { ?>
 				<tbody>
 					<?php
 $count = 1;
-$sel_query = "Select * from news ORDER BY category asc;";
+$sel_query = "Select * from news ORDER BY updated_datetime desc;";
 $result = mysqli_query($db, $sel_query);
 while ($row = mysqli_fetch_assoc($result)) {
 ?>
