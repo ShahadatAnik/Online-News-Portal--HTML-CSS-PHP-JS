@@ -1,8 +1,6 @@
 <?php
 require "adminLogout.php";
-
 require "isAdmin.php";
-
 require "../db/db.php";
 
 $id = $_REQUEST["id"];
@@ -97,7 +95,7 @@ else { ?>
 			<div class="col-md-8 shadow-lg bg-body rounded">
 				<?php
 $status = "";
-if (isset($_POST["new"]) && $_POST["new"] == 1) {
+if (isset($_POST["submit"])) {
 	$id = $_REQUEST["id"];
 	$category = mysqli_real_escape_string($db, $_POST["category"]);
 	$headline = mysqli_real_escape_string($db, $_POST["headline"]);
@@ -143,11 +141,12 @@ if (isset($_POST["new"]) && $_POST["new"] == 1) {
 		Record Updated Successfully. <a href='newsDashboard.php' class='alert-link'>Click to view record.</a>
 				</div>";
 
+	header("Location: newsDashboard.php");
+
 }
 ?>
 				<form class="row g-3 m-2 border-dark border-3 rounded px-2" name="form" method="post" action=""
 					enctype="multipart/form-data">
-					<input type="hidden" name="new" value="1" />
 					<div class="col-md-12">
 						<label for="inputState" class="form-label fw-bold">News Category</label>
 						<select id="inputState" class="form-select" name="category">
@@ -215,6 +214,8 @@ else {
 				<?php if ($status != "") {
 	echo $status;
 	$status = "";
+
+
 }
 ?>
 			</div>

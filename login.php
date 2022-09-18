@@ -80,6 +80,11 @@
                 <div class="col-md-4"></div>
             </div>
         </div>
+        <script>
+            if ( window.history.replaceState ) {
+                window.history.replaceState( null, null, window.location.href );
+            }
+        </script>
         <script
             src="js/jquery-3.5.1.slim.min.js"
             type="text/javascript"
